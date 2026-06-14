@@ -1,0 +1,13 @@
+Wheat crop risk increases when production decreases and pesticide usage becomes high.
+
+Pesticides help control insects and pests, but excessive pesticide usage may damage soil health and crop quality.
+
+Cropped area means the land used for cultivation. A decrease in cropped area can indicate agricultural stress.
+
+Crop production means total crop output. Low production can indicate crisis risk.
+
+Irrigation helps crops during low rainfall or dry weather. Poor irrigation can reduce yield.
+
+Fertilizers provide nutrients to soil. Proper fertilizer use improves crop growth and yield.
+
+Agricultural crisis risk can be predicted using crop area, production trend, pesticide usage, and weather stress.

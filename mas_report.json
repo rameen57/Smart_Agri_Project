@@ -1,0 +1,39 @@
+{
+    "timestamp": "2026-06-14 03:07:23",
+    "latest_event": {
+        "timestamp": "2026-06-14 03:07:22",
+        "district": "Sahiwal",
+        "crop": "Wheat",
+        "temperature": 41,
+        "humidity": 74,
+        "pesticide_usage": 221,
+        "risk_signal": "Low"
+    },
+    "agents": [
+        {
+            "agent": "Weather Agent",
+            "status": "High Risk",
+            "message": "Weather stress detected due to high temperature or low humidity."
+        },
+        {
+            "agent": "Pesticide Agent",
+            "status": "High Risk",
+            "message": "High pesticide usage detected. Monitor crop safety."
+        },
+        {
+            "agent": "Crop Agent",
+            "status": "Medium Risk",
+            "message": "Wheat is important and should be monitored carefully."
+        }
+    ],
+    "final_risk": {
+        "agent": "Risk Agent",
+        "status": "High Risk",
+        "message": "Final combined risk score is 5."
+    },
+    "recommendation": {
+        "agent": "Recommendation Agent",
+        "status": "High Risk",
+        "message": "Immediate action required: increase monitoring, check irrigation, inspect pest conditions, and alert farm management."
+    }
+}
