@@ -5,6 +5,13 @@ from ner_engine import extract_entities
 from rag_engine import simple_rag_answer
 from multi_agent_system import run_multi_agent_system
 
+try:
+    from llm_agri_api import ask_agri_llm
+    LLM_AVAILABLE = True
+except:
+    LLM_AVAILABLE = False
+
+
 df = pd.read_csv("final_agriculture_crisis_dataset.csv")
 model = joblib.load("agri_crisis_model.pkl")
 target_encoder = joblib.load("target_encoder.pkl")
@@ -15,6 +22,7 @@ features = [
     "Index_Area_Sown", "Index_Production",
     "Pesticide_per_Area", "Production_per_Area"
 ]
+
 
 def predict_crop_risk(crop):
     if crop is None:
@@ -33,6 +41,7 @@ def predict_crop_risk(crop):
 
     return risk
 
+
 def smart_agri_assistant(question):
     refusal = (
         "I am an AI specialized exclusively in agriculture. "
@@ -45,41 +54,61 @@ def smart_agri_assistant(question):
     if entities.get("blocked"):
         return refusal
 
-    if not any([entities.get("crop"), entities.get("location"), entities.get("issue")]):
-        return refusal
-
     crop = entities.get("crop")
     location = entities.get("location")
     issue = entities.get("issue")
 
-    crisis_risk = predict_crop_risk(crop)
-    rag_answer = simple_rag_answer(question)
-    mas_report = run_multi_agent_system()
+    # Allow agriculture questions even if issue is None
+    if not any([crop, location, issue]):
+        agriculture_words = [
+            "crop", "crops", "agriculture", "farm", "farming", "farmer",
+            "soil", "irrigation", "fertilizer", "pesticide", "yield",
+            "production", "harvest", "season", "summer", "winter",
+            "rice", "wheat", "cotton", "maize", "sugarcane"
+        ]
 
+        if not any(word in question.lower() for word in agriculture_words):
+            return refusal
+
+    # 1. ML crisis prediction
+    crisis_risk = predict_crop_risk(crop)
+
+    # 2. RAG answer
+    try:
+        rag_answer = simple_rag_answer(question)
+    except:
+        rag_answer = "No local RAG answer available."
+
+    # 3. MAS live analysis
     mas_risk = "Not available"
     mas_recommendation = "No live stream found. Run kafka_producer_sim.py for live MAS analysis."
 
-    if "error" not in mas_report:
-        mas_risk = mas_report["final_risk"]["status"]
-        mas_recommendation = mas_report["recommendation"]["message"]
+    try:
+        mas_report = run_multi_agent_system()
 
-    final_answer = f"""
-    <b>Detected Information</b><br>
-    Crop: {crop}<br>
-    Location: {location}<br>
-    Issue: {issue}<br><br>
+        if "error" not in mas_report:
+            mas_risk = mas_report["final_risk"]["status"]
+            mas_recommendation = mas_report["recommendation"]["message"]
+    except:
+        pass
 
-    <b>ML Crisis Prediction</b><br>
-    {crisis_risk}<br><br>
+    # 4. API/LLM answer if available
+    if LLM_AVAILABLE:
+        try:
+            api_answer = ask_agri_llm(
+                question=question,
+                entities=entities,
+                rag_context=rag_answer,
+                ml_risk=crisis_risk,
+                mas_risk=mas_risk,
+                mas_recommendation=mas_recommendation
+            )
+        except Exception as e:
+            api_answer = f"API answer unavailable. Reason: {str(e)}"
+    else:
+        api_answer = "API layer is not connected yet. Showing local system response only."
 
-    <b>MAS Live Analysis</b><br>
-    {mas_risk}<br>
-    {mas_recommendation}<br><br>
-
-    <b>RAG Agriculture Advice</b><br>
-    {rag_answer}
-    """
-
+    final_answer = api_answer
     return final_answer
 
 if __name__ == "__main__":

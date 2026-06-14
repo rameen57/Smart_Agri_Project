@@ -1,13 +1,13 @@
 {
-    "timestamp": "2026-06-14 03:07:23",
+    "timestamp": "2026-06-14 20:55:22",
     "latest_event": {
-        "timestamp": "2026-06-14 03:07:22",
-        "district": "Sahiwal",
-        "crop": "Wheat",
-        "temperature": 41,
-        "humidity": 74,
-        "pesticide_usage": 221,
-        "risk_signal": "Low"
+        "timestamp": "2026-06-14 03:17:20",
+        "district": "Faisalabad",
+        "crop": "Rice",
+        "temperature": 43,
+        "humidity": 69,
+        "pesticide_usage": 62,
+        "risk_signal": "High"
     },
     "agents": [
         {
@@ -17,23 +17,23 @@
         },
         {
             "agent": "Pesticide Agent",
-            "status": "High Risk",
-            "message": "High pesticide usage detected. Monitor crop safety."
+            "status": "Low Risk",
+            "message": "Pesticide usage is within normal range."
         },
         {
             "agent": "Crop Agent",
             "status": "Medium Risk",
-            "message": "Wheat is important and should be monitored carefully."
+            "message": "Rice is important and should be monitored carefully."
         }
     ],
     "final_risk": {
         "agent": "Risk Agent",
-        "status": "High Risk",
-        "message": "Final combined risk score is 5."
+        "status": "Medium Risk",
+        "message": "Final combined risk score is 3."
     },
     "recommendation": {
         "agent": "Recommendation Agent",
-        "status": "High Risk",
-        "message": "Immediate action required: increase monitoring, check irrigation, inspect pest conditions, and alert farm management."
+        "status": "Medium Risk",
+        "message": "Moderate attention required: monitor crop health, pesticide usage, and weather conditions regularly."
     }
 }

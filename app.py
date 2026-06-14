@@ -2,7 +2,6 @@ from flask import Flask, request
 import pandas as pd
 import joblib
 import json
-
 from smart_assistant import smart_agri_assistant
 from multi_agent_system import run_multi_agent_system
 
