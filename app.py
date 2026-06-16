@@ -34,7 +34,12 @@ def load_kafka_events():
     try:
         with open("kafka_events.jsonl", "r") as file:
             lines = file.readlines()[-8:]
+
         events = [json.loads(line) for line in lines]
+
+        if not events:
+            return "<p class='muted'>No live events yet.</p>"
+
         return pd.DataFrame(events).to_html(index=False, classes="data-table")
     except:
         return "<p class='muted'>No live events found. Run kafka_producer_sim.py first.</p>"
@@ -49,9 +54,10 @@ def dashboard(chatbot_result=None, mas_result=None):
     if chatbot_result:
         chatbot_html = f"""
         <div class="answer-box">
-            <h3>🌸 Smart Agribot Response</h3>
-            <p><b>Question:</b> {chatbot_result['question']}</p>
-            <p>{chatbot_result['answer']}</p>
+            <h3>🌾 Agribot Recommendation</h3>
+            <div class="agribot-answer">
+                {chatbot_result['answer']}
+            </div>
         </div>
         """
 
@@ -137,7 +143,7 @@ def dashboard(chatbot_result=None, mas_result=None):
                 border-radius: 14px;
                 outline: none;
                 margin-top: 10px;
-                font-size: 14px;
+                font-size: 15px;
             }}
 
             button {{
@@ -161,7 +167,34 @@ def dashboard(chatbot_result=None, mas_result=None):
                 padding: 18px;
                 border-radius: 18px;
                 margin-top: 18px;
-                line-height: 1.6;
+                line-height: 1.7;
+            }}
+
+            .agribot-answer {{
+                font-size: 18px;
+                line-height: 1.9;
+                text-align: justify;
+                color: #1b4332;
+                background: white;
+                padding: 20px;
+                border-radius: 16px;
+                border: 1px solid #ffe8b6;
+            }}
+
+            .agribot-answer h3 {{
+                color: #2d6a4f;
+                margin-top: 18px;
+                margin-bottom: 8px;
+                font-size: 21px;
+            }}
+
+            .agribot-answer h3:first-child {{
+                margin-top: 0;
+            }}
+
+            .agribot-answer p {{
+                margin-top: 6px;
+                margin-bottom: 14px;
             }}
 
             .data-table {{
@@ -222,7 +255,10 @@ def dashboard(chatbot_result=None, mas_result=None):
         <script>
             function updateClock() {{
                 const now = new Date();
-                document.getElementById("clock").innerHTML = now.toLocaleTimeString();
+                const clock = document.getElementById("clock");
+                if (clock) {{
+                    clock.innerHTML = now.toLocaleTimeString();
+                }}
             }}
             setInterval(updateClock, 1000);
             window.onload = updateClock;
@@ -266,15 +302,15 @@ def dashboard(chatbot_result=None, mas_result=None):
                 <div class="panel">
                     <h2>🤖 Smart Agribot Assistant</h2>
                     <p>
-                        Ask one agriculture question. Agribot will use
-                        <b>NER + ML Crisis Prediction + MAS + RAG</b> together.
+                        Ask any farming-related question and get a simple recommendation.
+                        All AI modules work in the background.
                     </p>
 
                     <form action="/chatbot" method="post">
                         <input
                             type="text"
                             name="question"
-                            placeholder="Example: Wheat crop in Multan has severe pest attack"
+                            placeholder="Example: What pesticide should I use for wheat crop?"
                             required
                         >
                         <button type="submit">Ask Smart Agribot</button>
@@ -345,7 +381,6 @@ def chatbot():
     answer = smart_agri_assistant(question)
 
     return dashboard(chatbot_result={
-        "question": question,
         "answer": answer
     })
 

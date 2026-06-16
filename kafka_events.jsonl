@@ -4345,3 +4345,14 @@
 {"timestamp": "2026-06-14 03:17:14", "district": "Multan", "crop": "Cotton", "temperature": 25, "humidity": 37, "pesticide_usage": 175, "risk_signal": "High"}
 {"timestamp": "2026-06-14 03:17:17", "district": "Multan", "crop": "Sugarcane", "temperature": 36, "humidity": 56, "pesticide_usage": 107, "risk_signal": "Low"}
 {"timestamp": "2026-06-14 03:17:20", "district": "Faisalabad", "crop": "Rice", "temperature": 43, "humidity": 69, "pesticide_usage": 62, "risk_signal": "High"}
+{"timestamp": "2026-06-15 15:43:45", "district": "Lahore", "crop": "Rice", "temperature": 26, "humidity": 62, "pesticide_usage": 67, "risk_signal": "Medium"}
+{"timestamp": "2026-06-15 15:43:48", "district": "Faisalabad", "crop": "Sugarcane", "temperature": 33, "humidity": 41, "pesticide_usage": 187, "risk_signal": "Medium"}
+{"timestamp": "2026-06-15 15:43:51", "district": "Faisalabad", "crop": "Maize", "temperature": 30, "humidity": 54, "pesticide_usage": 177, "risk_signal": "Low"}
+{"timestamp": "2026-06-15 15:43:54", "district": "Faisalabad", "crop": "Sugarcane", "temperature": 32, "humidity": 74, "pesticide_usage": 104, "risk_signal": "Medium"}
+{"timestamp": "2026-06-15 15:43:57", "district": "Multan", "crop": "Rice", "temperature": 36, "humidity": 56, "pesticide_usage": 135, "risk_signal": "Low"}
+{"timestamp": "2026-06-15 15:44:00", "district": "Bahawalpur", "crop": "Maize", "temperature": 31, "humidity": 50, "pesticide_usage": 179, "risk_signal": "Low"}
+{"timestamp": "2026-06-15 15:44:03", "district": "Multan", "crop": "Maize", "temperature": 35, "humidity": 65, "pesticide_usage": 241, "risk_signal": "High"}
+{"timestamp": "2026-06-15 15:44:06", "district": "Lahore", "crop": "Sugarcane", "temperature": 43, "humidity": 30, "pesticide_usage": 52, "risk_signal": "High"}
+{"timestamp": "2026-06-15 15:44:09", "district": "Lahore", "crop": "Wheat", "temperature": 28, "humidity": 53, "pesticide_usage": 72, "risk_signal": "Low"}
+{"timestamp": "2026-06-15 15:44:12", "district": "Sahiwal", "crop": "Sugarcane", "temperature": 29, "humidity": 39, "pesticide_usage": 122, "risk_signal": "High"}
+{"timestamp": "2026-06-15 15:44:15", "district": "Sahiwal", "crop": "Rice", "temperature": 35, "humidity": 37, "pesticide_usage": 174, "risk_signal": "Medium"}
